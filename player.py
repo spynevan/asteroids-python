@@ -1,4 +1,5 @@
 from constants import *
+import math
 from circleshape import CircleShape
 import pygame
 class Player(CircleShape):
@@ -26,4 +27,13 @@ class Player(CircleShape):
         if keys[pygame.K_a]:
             self.rotate(delta_time * -1)
         if keys[pygame.K_d]:
-            self.rotate(delta_time * 1)
+            self.rotate(delta_time)
+        if keys[pygame.K_w]:
+            self.move(delta_time)
+        if keys[pygame.K_s]:
+            self.move(delta_time * -1)
+
+    def move(self, delta_time):
+        vector = pygame.Vector2(0,1).rotate(self.rotation)
+        movement = vector * PLAYER_SPEED * delta_time
+        self.position += movement
