@@ -44,10 +44,17 @@ def main():
             item.draw(screen)
         for item in updatable:
             item.update(delta_time)
-        for item in asteroids:
-            if player.collides_with(item):
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
                 log_event("player_hit")
                 sys.exit()
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    asteroid.kill()
+                    shot.kill()
+                    log_event("asteroid shot")
+
+
 
         pygame.display.flip()
         delta_time = clock.tick(60) / 1000
